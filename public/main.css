@@ -1,0 +1,26 @@
+html, body {
+	margin:0;
+	padding:0;
+}
+
+#homebody {
+	background:url("images/congruent_outline.png");
+	background-size: cover;
+    background-repeat: no-repeat;
+    height:1000px;
+	width:auto;
+	margin: 0 auto;
+}
+
+#loginbox {
+	background-color:white;
+	opacity:0.3;
+	text-align:center;
+	width:300px;
+	height:300px;
+
+}
+
+#form {
+	opacity:1;
+}

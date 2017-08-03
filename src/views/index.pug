@@ -1,0 +1,19 @@
+doctype 
+html
+	head
+		title Login 
+		link(rel="stylesheet", href="./main.css", type="text/css")
+	body#homebody
+		div#loginbox
+			form#form(name="form" method="post" action="/bloglogin")
+				label Username:
+				input#username(type="text" name="username" placeholder="username")
+				br
+				label Password:
+				input#password(type="password" name="password" placeholder="password")
+				br
+				input(type="checkbox" name="checkbox") 
+				label Remember username
+				br
+				br
+				button(type="submit") Submit 

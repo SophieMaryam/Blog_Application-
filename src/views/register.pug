@@ -1,0 +1,19 @@
+doctype
+html
+	head
+		title Register User
+		link(rel="stylesheet", href="./main.css", type="text/css")
+	body
+		h1 Create an Account 
+		form#formtwo(name="form" method="post" action="/registeruser")
+			label Username:
+			input#registeruser(type="text" name="registername" placeholder="username")
+			br
+			label Email:
+			input#registeremail(type="text", name="registeremail", placeholder="example@email.com")
+			br
+			label Password:
+			input#registerpassword(type="password" name="registerpassword" placeholder="password")
+			br
+			br
+			button(type="submit") Submit 
