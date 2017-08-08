@@ -8,15 +8,17 @@ html
 		link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css")
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 
-	body
-		div.container
+	body#homebody
+		header
+			nav.black.white-text
+		.container
 			if user
 				a(href='/profile/' + user.id) view profile
 				br
 				a(href='/logout') log out
 			else
-				div#loginbox
-					div#logininfo
+				#loginbox
+					#logininfo
 						form(name="form" method="post" action="/bloglogin")
 							label Email:
 							input#username(type="text" name="email" placeholder="email")

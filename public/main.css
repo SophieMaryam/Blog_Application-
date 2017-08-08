@@ -4,7 +4,7 @@ html, body {
 }
 
 #homebody {
-	background:url("/images/backgroundimage.jpeg");
+	background:url("/images/backgroundpic.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
     height:1000px;
@@ -14,12 +14,12 @@ html, body {
 
 #loginbox {
 	background-color:white;
-	/*opacity:0.3;*/
+	opacity:0.4;
 	margin:auto;
 	float:center center;
-	color:black;
-	width:300px;
+	width:350px;
 	height:300px;
+	margin-top:200px;
 }
 
 #logininfo {

@@ -104,10 +104,10 @@ app.get('/wall', (req, res) => {
 		var data = everyblogpost.map((post) => {
 			var title = post.dataValues.title;
 			var blogs = post.dataValues.blog;
-			return {
-				title: title,
-				blogs: blogs
-			}
+				return {
+					title: title,
+					blogs: blogs
+				}
 		})
 		res.render('blogwall', {info: data})
 		})					
@@ -122,13 +122,13 @@ User.hasMany(Blogs);
 // Many to Many Relationships (Blogs, Comments, and Users)
 
 // User.belongsToMany(Blogs, {through:Comments});
-// Blogs.belongsToMany(Users, {through:Comments});
+// Blogs.belongsToMany(User, {through:Comments});
 
 // Comments.belongsToMany(User, {through:Blogs});
 // User.belongsToMany(Comments, {through:Blogs});
 
-// Coments.belongsToMany(Blogs, {through:Users});
-// Blogs.belongsToMany(Comments, {through:Users});
+// Comments.belongsToMany(Blogs, {through:User});
+// Blogs.belongsToMany(Comments, {through:User});
 
 User.hasMany(Blogs);
 Blogs.hasMany(Comments);
@@ -137,6 +137,35 @@ User.hasMany(Comments);
 Comments.belongsTo(Blogs);
 Comments.belongsTo(User);
 Blogs.belongsTo(User);
+
+app.post('/comments', (req,res) => {
+	Blogs.create({
+		comment: req.body.comment,
+	})
+	.then(() => {
+		res.redirect('/wall')
+	})
+	.catch((err) => {
+		console.log(err);
+	})
+})
+
+app.get('/wall', (req,res) => {
+	Blogs.findAll({
+		include: [
+			{
+				model:users,
+			}
+		],
+		include: [
+			{
+				model:comments,
+			}
+		]
+	}).then(data => {
+		res.render('blogwall', {info:data})
+	})
+});
 
 
 // LOGIN PAGE
@@ -197,6 +226,31 @@ app.get('/profile/:id', (req, res) => {
 			user:user
 		});
 	}
+});
+
+app.post('/writingblog', (req, res) => {
+	Blogs.create({
+		title: req.body.title,
+		blog: req.body.blog,
+		userId: req.session.user.id
+	})
+	.then(() => {
+		res.redirect('/wall')
+	})
+	.catch((err) => {
+		console.log(err);
+	})
+});
+
+
+// PROFILE PAGE/POSTS
+app.get('/myposts', (req, res) => {
+	const user = req.session.user;
+	Blogs.findAll({
+		where: req.session.user.id
+	}).then((post) => {
+		res.render('profileposts', {list: post})
+	})	
 });
 
 
