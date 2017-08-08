@@ -1,6 +1,32 @@
 doctype
 html 
 	head
-		title Blog Wall
+		title 
 	body
-		p hello
+		div#allblogs
+			h1#walltitle The Wall 
+			each post in info
+					ul.post
+					br 
+					br
+					li=post.title
+					br
+					li=post.blogs
+					br
+					br
+					li=
+					br
+					form(name="form" method="post" action="/comments" required)
+						label Comment:
+						input#password(type="text" name="comments" placeholder="Comment...")
+						br
+						br
+						button(type="submit") Submit 
+
+			a(href='/profile:myposts')
+				button.button(type=button) Return Back
+				
+
+
+
+		

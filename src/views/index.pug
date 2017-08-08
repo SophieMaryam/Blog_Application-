@@ -3,17 +3,37 @@ html
 	head
 		title Login 
 		link(rel="stylesheet", href="./main.css", type="text/css")
-	body#homebody
-		div#loginbox
-			form#form(name="form" method="post" action="/bloglogin")
-				label Username:
-				input#username(type="text" name="username" placeholder="username")
+
+		link(href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet")
+
+		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css")
+
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+
+	body
+		div.container
+			if user
+				a(href='/profile/' + user.id) view profile
 				br
-				label Password:
-				input#password(type="password" name="password" placeholder="password")
-				br
-				input(type="checkbox" name="checkbox") 
-				label Remember username
-				br
-				br
-				button(type="submit") Submit 
+				a(href='/logout') log out
+			else
+				div#loginbox
+					div#logininfo
+						form(name="form" method="post" action="/bloglogin")
+							label Email:
+							input#username(type="text" name="email" placeholder="email")
+							br
+							label Password:
+							input#password(type="password" name="password" placeholder="password")
+							br
+							input(type="checkbox" name="checkbox") 
+							label Remember username
+							br
+							br
+							button(type="submit") Submit 
+			h2#error-message= message
+
+	 	 script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
+	        script(type="text/javascript" src="js/materialize.min.js")

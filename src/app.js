@@ -5,7 +5,7 @@ const bodyParser = require('body-parser'); // requiring body-parser module - par
 
 app.use('/', bodyParser.urlencoded({extended:true}));
 
-// Setting up Sequelize
+// Model Configuration 
 const Sequelize = require('sequelize');
 const connection = new Sequelize('blogapplication', 'postgres', '1626', {
 	host: 'localhost',
@@ -19,40 +19,77 @@ app.set('view engine', 'pug');
 // CSS Page
 app.use(express.static(__dirname + "/../public"));
 
+// Sessions
+
+const session = require('express-session'); // requiring session module 
+
+app.use(session({
+	secret: "This is a secret",
+	resave:false, // you stay longed in when you switched 
+	saveUninitialized: true
+
+}));
+
 // Model Definition (This will be for creating your account)
 
 const User = connection.define('user', {
 	username: {
 		type: Sequelize.STRING,
-		isNull: false,
+		unique:true,
+		allowNull: false
 	}, 
 	email: {
 		type: Sequelize.STRING,
 		unique:true,
-		isEmail: true
+		allowNull: false
 	},
 	password: {
-		type: Sequelize.STRING
-	} 
-	}, {
+		type: Sequelize.STRING,
+	},
+},  {
+		timestamps:false
+	});
+
+
+const Blogs = connection.define('blogs', {
+	title: {
+		type: Sequelize.STRING,
+		allowNull: false
+		},
+	blog: {
+		type: Sequelize.STRING,
+		allowNull: false
+	},
+},  {
+		timestamps:false
+	});
+
+const Comments = connection.define('comments', {
+	comments: {
+		type: Sequelize.STRING,
+		allowNull: false
+	},
+},  {
 		timestamps:false
 	});
 
 connection.sync();
 
-// Register page
-app.get('/register/new', (req, res) => {
+// REGISTER PAGE
+
+app.get('/user/new', (req, res) => {
 	res.render('register')
 });
 
-app.post('/registeruser', (req,  res) =>{
+app.post('/user', (req,  res) =>{
 	User.create({
 		username: req.body.registername,
 		email: req.body.registeremail,
 		password: req.body.registerpassword
 	})
-	.then(() => {
-		res.redirect('/wall')
+	.then((user) => {
+		req.session.user = user // req.session.the name of your table you are linking to
+		res.redirect(`/profile/${user.id}`)
 	})
 	.catch((err) => {
 		console.log(err);
@@ -60,43 +97,71 @@ app.post('/registeruser', (req,  res) =>{
 
 });
 
-// Blog Wall
+// BLOG WALL (ALL BLOGS)
 
 app.get('/wall', (req, res) => {
-	res.render('blogwall')
+	Blogs.findAll().then(function(everyblogpost){
+		var data = everyblogpost.map((post) => {
+			var title = post.dataValues.title;
+			var blogs = post.dataValues.blog;
+			return {
+				title: title,
+				blogs: blogs
+			}
+		})
+		res.render('blogwall', {info: data})
+		})					
 });
 
-// // login Page
-// app.get('/', (req, res) => {
-// 	res.render('index');
-// });
-
-// app.post('/bloglogin', (req, res) => {
-// 	let username = 	req.body.username,
-// 	email = req.body.email,
-// 	password = req.body.password;
-
-// 	console.log(req.body.username);
-// 	console.log(req.body.email);
-// 	console.log(req.body.password);
-
-
-// 	User.findOne({
-// 		where: {
-// 			name: req.body.username
-// 		}
-// 	})
-
-// 	})
-// })
+// One to many relationship (User and Blogs)
 
 
 
 
+// LOGIN PAGE
+
+app.get('/', (req, res) => {
+	res.render('index', {
+		message: req.query.message,
+		user: req.session.user               // ??????
+	});
+});
+
+app.post('/bloglogin', (req, res) => {
+	console.log(req.body.email);
+	console.log(req.body.password);
+
+	if(req.body.email.length === 0){
+		res.redirect('/?message=' + encodeURIComponent("Please fill out your email address."));
+		return;	
+	}
+
+	if(req.body.password.length === 0){
+		res.redirect('/?message=' + encodeURIComponent("Please fill our your password."));
+		return;
+	}
+
+	User.findOne({
+		where: {
+			email: req.body.email
+		}
+	}).then(function(user){
+		if(user !== null && req.body.password === user.password){
+			req.session.user = user;
+			res.redirect(`/profile/${user.id}`)
+		}
+	}).catch(function(err){
+		console.log(err)
+		res.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
+	});
+}); 
 
 
 
+
+// SERVER
 
 const server = app.listen(3000, () => {
 	console.log("Blog app listening on port: " + server.address().port)
 });
+
