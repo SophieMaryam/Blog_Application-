@@ -1,0 +1,32 @@
+doctype
+html
+	head
+		title Profile 
+	body
+		p this is your profile page
+
+		h2= user.username
+		h3= user.email
+
+
+		form(name="form" method="post" action="/writingblog")
+			input#title(type="text" name="title" placeholder="Blog Title" required)
+			br
+			br
+			textarea(id="textspace", name="blog", placeholder="My thoughts...", rows="100", columns="100" required)
+			br
+			br
+			input(id="submit" type="submit", value="Submit")
+
+
+			h2#err-message= message
+
+		a(href="./blog")
+			button.button(type=button) Return Back
+		a(href='/myposts') Posts
+
+		a(href='/wall') Wall
+		br
+
+		a(href='/logout') log out
+			

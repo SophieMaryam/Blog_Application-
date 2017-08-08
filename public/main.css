@@ -14,7 +14,7 @@ html, body {
 
 #loginbox {
 	background-color:white;
-	opacity:0.3;
+	/*opacity:0.3;*/
 	margin:auto;
 	float:center center;
 	color:black;

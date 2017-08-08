@@ -14,11 +14,9 @@ html
 					li=post.blogs
 					br
 					br
-					li=
-					br
-					form(name="form" method="post" action="/comments" required)
+					form(name="form" method="post" action="/comments")
 						label Comment:
-						input#password(type="text" name="comments" placeholder="Comment...")
+						input#password(type="text" name="comments" placeholder="Comment..." required)
 						br
 						br
 						button(type="submit") Submit 

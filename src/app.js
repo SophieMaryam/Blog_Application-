@@ -115,7 +115,28 @@ app.get('/wall', (req, res) => {
 
 // One to many relationship (User and Blogs)
 
+User.hasMany(Blogs);
+(Blogs).belongsTo(User);
 
+
+// Many to Many Relationships (Blogs, Comments, and Users)
+
+// User.belongsToMany(Blogs, {through:Comments});
+// Blogs.belongsToMany(Users, {through:Comments});
+
+// Comments.belongsToMany(User, {through:Blogs});
+// User.belongsToMany(Comments, {through:Blogs});
+
+// Coments.belongsToMany(Blogs, {through:Users});
+// Blogs.belongsToMany(Comments, {through:Users});
+
+User.hasMany(Blogs);
+Blogs.hasMany(Comments);
+User.hasMany(Comments);
+
+Comments.belongsTo(Blogs);
+Comments.belongsTo(User);
+Blogs.belongsTo(User);
 
 
 // LOGIN PAGE
@@ -156,7 +177,27 @@ app.post('/bloglogin', (req, res) => {
 	});
 }); 
 
+app.get('/logout', (req, res) => {
+	req.session.destroy((err) => {
+		if(err){
+			throw err;
+		}
+		res.redirect('/?message=' + encodeURIComponent("Successfully logged out."));
+	})
+});
 
+// PROFILE PAGE
+
+app.get('/profile/:id', (req, res) => {
+	var user = req.session.user;
+	if(user === undefined){
+		res.redirect('/?message=' + encodeURIComponent("Please log in to view your profile."));
+	} else {
+		res.render('profile', {
+			user:user
+		});
+	}
+});
 
 
 // SERVER
