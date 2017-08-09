@@ -72,7 +72,18 @@ const Comments = connection.define('comments', {
 		timestamps:false
 	});
 
+
+// Model Relationships
+User.hasMany(Blogs);
+Blogs.hasMany(Comments);
+User.hasMany(Comments);
+
+Comments.belongsTo(Blogs);
+Comments.belongsTo(User);
+Blogs.belongsTo(User);
+
 connection.sync();
+
 
 // REGISTER PAGE
 
@@ -99,81 +110,50 @@ app.post('/registeruser', (req,  res) =>{
 // BLOG WALL (ALL BLOGS)
 
 app.get('/wall', (req, res) => {
-	Blogs.findAll().then(function(everyblogpost){
-		var data = everyblogpost.map((post) => {
-			var title = post.dataValues.title;
-			var blogs = post.dataValues.blog;
-				return {
-					title: title,
-					blogs: blogs
-				}
+	var user = req.sessions.user;
+	if(user === undefined){
+		res.redierct('/login?message=' + encodeURIComponent('Please log in to view all posts.'))
+	} else {
+		Users.findAll() // first query 
+		.then((everyuser) => {
+			Blogs.findAll()({ // second query 
+				include: [{ // only works for one model - can't get info from two models in one query 
+					model: Comments, // comment model name
+					as: 'comments' // the alias 
+				}]
+			})
 		})
-		res.render('blogwall', {info: data})
-		})					
+		.then((everypost) => {
+			res.render('blogwall', {info: everypost, users:everyuser})
+		})
+		.catch((err) => {
+			console.log(err)
+		})
+	}
+					
 });
-
-// One to many relationship (User and Blogs)
-
-User.hasMany(Blogs);
-(Blogs).belongsTo(User);
-
-
-// Many to Many Relationships (Blogs, Comments, and Users)
-
-// User.belongsToMany(Blogs, {through:Comments});
-// Blogs.belongsToMany(User, {through:Comments});
-
-// Comments.belongsToMany(User, {through:Blogs});
-// User.belongsToMany(Comments, {through:Blogs});
-
-// Comments.belongsToMany(Blogs, {through:User});
-// Blogs.belongsToMany(Comments, {through:User});
-
-User.hasMany(Blogs);
-Blogs.hasMany(Comments);
-User.hasMany(Comments);
-
-Comments.belongsTo(Blogs);
-Comments.belongsTo(User);
-Blogs.belongsTo(User);
 
 app.post('/comments', (req,res) => {
 	var user = req.session.user.username;
-	var comment = req.session.comments;
-	var blog = req.session.blogs;
-	
 	User.findOne({
 		where: {
-			name: user
+			name: user.username,
 		}
 	})
 	.then((theuser) => {
 		return theuser.createComments({
-			comment:comment,
-			blog:blog
+			comment:req.body.comment,
+			blog:req.body.blog
 		})
-	})
-	.then(commented => {
-		res.redirect('/wall')
+		.then(() => {
+			res.redirect('/wall')
+		})
+
 	})
 	.catch((err) => {
-		console.log(err);
-	})
-})
-
-app.get('/wall', (req,res) => {
-	console.log('comment' + comment);
-
-	Blogs.findAll({
-		include: [
-			{
-				model:users,
-			}]
-	}).then(data => {
-		res.render('blogwall', {info:data})
+		console.log('Error: ' + err)
 	})
 });
-
 
 // LOGIN PAGE
 
@@ -213,6 +193,7 @@ app.post('/bloglogin', (req, res) => {
 	});
 }); 
 
+// LOG OUT 
 app.get('/logout', (req, res) => {
 	req.session.destroy((err) => {
 		if(err){
@@ -253,11 +234,28 @@ app.post('/writingblog', (req, res) => {
 // PROFILE PAGE/POSTS
 app.get('/myposts', (req, res) => {
 	const user = req.session.user;
-	Blogs.findAll({
-		where: user.id
-	}).then((post) => {
-		res.render('profileposts', {list: post})
-	})	
+	if(user === undefined){
+		res.redirect('login/?message=' + encodeURIComponent("Please log in to view your posts."));
+	} else {
+		User.findAll()
+		.then((users) => {
+			where: {
+				userId: user.id
+			}
+			include: [{
+				model: Comments,
+				as: 'comments'
+			}]
+		})
+		.then((post) => {
+			res.render('profileposts', {users:users, list:post})
+		})
+		.catch((err) => {
+			console.log('Error: ' + err);
+			res.redirect('/?message=' + encodeURIComponent("Error."));
+		});
+
+	}	
 });
 
 

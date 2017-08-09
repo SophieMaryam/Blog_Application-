@@ -11,6 +11,9 @@ html
 		div#allblogs
 			h1#walltitle The Wall 
 			each post in posts
+				each user in users
+					if posts.userId === user.id
+
 					ul
 					br 
 					br
@@ -26,7 +29,7 @@ html
 						form(name="form" method="post" action="/comments")
 							label Comment:
 							input#password(type="text" name="comments" placeholder="Comment..." required)
-							input(type='hidden' name='postId' value='blog.id')
+							input(type='hidden' name='postId' value=posts.id)
 							br
 							br
 							button(type="submit") Submit 
