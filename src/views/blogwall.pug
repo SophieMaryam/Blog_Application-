@@ -10,11 +10,10 @@ html
 	body
 		div#allblogs
 			h1#walltitle The Wall 
-			each post in posts
+			each post in info
 				each user in users
-					if posts.userId === user.id
-						p
-							#{user.username} wrote "#{post.title}"
+					if post.userId === user.id
+						p #{user.username} wrote "#{post.title}"
 						p #{post.body}
 						div.comments
 							each comment in post.comments
@@ -22,11 +21,12 @@ html
 									if comment.userId === user.id
 										p.comment
 											i #{user.username} commented:
-											#{comment.body}
+											#{comments.comments}  
+											//- comments.comments (alias.columnname)
 							form(name="form" method="post" action="/comments")
 								label Comment:
 								input#password(type="text" name="comments" placeholder="Comment..." required)
-								input(type='hidden' name='postId' value=posts.id)
+								input(type='hidden' name='blogId' value=post.id)
 								br
 								br
 								button(type="submit") Submit 

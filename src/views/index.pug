@@ -7,15 +7,12 @@ html
 		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 		link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css")
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
-	body#homebody
+	body
 		header
-			nav.white.black-text.center(id="spotlight") Spotlight
-				a(href="#").brand-logo.black-text.right Register
-				ul.right.hide-on-med-and-down
-					li
-						a(href="#") Navbar Link
+			nav.white.black-text.center(id="spotlight") Spotlight blog
+				a(href="register/new").brand-logo.black-text.right Register
 		.rows
-			img(src="http://joco.name/wp-content/uploads/2014/03/rgb_2048_1.png").col.s12
+			img#image(src="/images/backgroundimagetwo.png").col.s12
 		.options
 			if user
 				a(href='/profile/' + user.id) View profile
@@ -38,7 +35,19 @@ html
 						i.material-icons.right send
 					br
 					br
-					h5 #{message}
+					br
+					h5#message #{message}
+			br
+			br
+			br
+			br
+			br
+			br
+			.rows
+				img(src="/images/backgroundimage.png").col.s12
+		footer
+			nav.white.black-text.center.upper(id="footer") Connect with other artists around the world
+
 
 
 		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
