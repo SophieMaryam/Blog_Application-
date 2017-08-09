@@ -82,7 +82,7 @@ Comments.belongsTo(Blogs);
 Comments.belongsTo(User);
 Blogs.belongsTo(User);
 
-connection.sync();
+connection.sync({force:true});
 
 
 // REGISTER PAGE
@@ -237,25 +237,27 @@ app.get('/myposts', (req, res) => {
 	if(user === undefined){
 		res.redirect('login/?message=' + encodeURIComponent("Please log in to view your posts."));
 	} else {
-		User.findAll()
-		.then((users) => {
+		User.findAll({
 			where: {
-				userId: user.id
+				id: user.id // filter it where the column id equals the user of this
 			}
-			include: [{
-				model: Comments,
-				as: 'comments'
-			}]
 		})
-		.then((post) => {
-			res.render('profileposts', {users:users, list:post})
+		.then((users) => { 			
+			Blogs.findAll(
+				include: [{
+					model: Comments, // this will include comments if they exist
+					as: 'comments'
+				}]
+			)
+			.then((post) => {
+				res.render('profileposts', {users:users, list:post})
+			})
 		})
 		.catch((err) => {
 			console.log('Error: ' + err);
 			res.redirect('/?message=' + encodeURIComponent("Error."));
 		});
-
-	}	
+	}
 });
 
 

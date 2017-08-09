@@ -13,26 +13,23 @@ html
 			each post in posts
 				each user in users
 					if posts.userId === user.id
-
-					ul
-					br 
-					br
-					li=post.title
-					br
-					li=post.blogs
-					br
-					li=info.comments
-					br
-					li=info.users
-					br
-					li 	
-						form(name="form" method="post" action="/comments")
-							label Comment:
-							input#password(type="text" name="comments" placeholder="Comment..." required)
-							input(type='hidden' name='postId' value=posts.id)
-							br
-							br
-							button(type="submit") Submit 
+						p
+							#{user.username} wrote "#{post.title}"
+						p #{post.body}
+						div.comments
+							each comment in post.comments
+								each user in users
+									if comment.userId === user.id
+										p.comment
+											i #{user.username} commented:
+											#{comment.body}
+							form(name="form" method="post" action="/comments")
+								label Comment:
+								input#password(type="text" name="comments" placeholder="Comment..." required)
+								input(type='hidden' name='postId' value=posts.id)
+								br
+								br
+								button(type="submit") Submit 
 
 			a(href='/myposts')
 				button.button(type=button) Return Back
