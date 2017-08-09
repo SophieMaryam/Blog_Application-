@@ -2,18 +2,31 @@ doctype
 html
 	head
 		title Register User
-		link(rel="stylesheet", href="./main.css", type="text/css")
+		link(rel="stylesheet" href="./main.css" type="text/css")
+		link(href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet")
+		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+		link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 	body
-		h1 Create an Account 
-		form#formtwo(name="form" method="post" action="/registeruser")
-			label Username:
-			input#registeruser(type="text" name="registername" placeholder="username" required)
-			br
-			label Email:
-			input#registeremail(type="text", name="registeremail", placeholder="example@email.com" required)
-			br
-			label Password:
-			input#registerpassword(type="password" name="registerpassword" placeholder="password" required)
-			br
-			br
-			button(type="submit") Submit 
+		header
+			nav.pink.white-text.center Spotlight
+		.formbox
+			form(name="form" method="post" action="/registeruser")
+				h1 	Create an Account
+				br
+				br
+				label Username:
+				input#registeruser(type="text" name="registername" placeholder="username" required)
+				br
+				label Email:
+				input#registeremail(type="text", name="registeremail", placeholder="example@email.com" required)
+				br
+				label Password:
+				input#registerpassword(type="password" name="registerpassword" placeholder="password" required)
+				br
+				br
+				button#button(type="submit").btn.waves-effect.waves-light Submit 
+						i.material-icons.right send 
+
+		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
+		script(type="text/javascript" src="js/materialize.min.js")

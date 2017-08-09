@@ -2,31 +2,47 @@ doctype
 html
 	head
 		title Profile 
+		link(rel="stylesheet" href="./main.css" type="text/css")
+		link(href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet")
+		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+		link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 	body
-		p this is your profile page
+		header
+			nav.pink.white-text.center Spotlight
 
-		h2= user.username
-		h3= user.email
+			//- ul
+			//- li	
+			//- 	a(href="./blog")
+			//- 		button.button(type=button) Return Back	
+			//- 	a(href='/myposts') Posts
+			//- 		button.button(type=button)
+			//- 	a(href='/wall').btn
+			//- 	a(href='/logout').btn.
+				
+		.contaner
+			.row
+				.col.s4
+					h3 Name: 
+						h4 #{user.username}
+					br
+					br
+					h3 Email: 
+						h4 #{user.email}
+				.col.s8
+					h3 Posts: 
+					form(name="form" method="post" action="/writingblog")
+						input#title(type="text" name="title" placeholder="Blog Title" required)
+						br
+						br
+						textarea(id="textspace", name="blog", placeholder="My thoughts...", rows="100", columns="100" required)
+						br
+						br
+						input(id="submit" type="submit", value="Submit")
 
 
-		form(name="form" method="post" action="/writingblog")
-			input#title(type="text" name="title" placeholder="Blog Title" required)
-			br
-			br
-			textarea(id="textspace", name="blog", placeholder="My thoughts...", rows="100", columns="100" required)
-			br
-			br
-			input(id="submit" type="submit", value="Submit")
+						h2#err-message= message
 
+		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
+		script(type="text/javascript" src="js/materialize.min.js")
 
-			h2#err-message= message
-
-		a(href="./blog")
-			button.button(type=button) Return Back
-		a(href='/myposts') Posts
-
-		a(href='/wall') Wall
-		br
-
-		a(href='/logout') log out
-			

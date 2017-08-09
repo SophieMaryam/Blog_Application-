@@ -10,28 +10,32 @@ html
 
 	body#homebody
 		header
-			nav.black.white-text
-		.container
+			nav.pink.white-text.center Spotlight
+		.options
 			if user
-				a(href='/profile/' + user.id) view profile
+				a(href='/profile/' + user.id) View profile
 				br
-				a(href='/logout') log out
+				a(href='/logout') Log out
 			else
-				#loginbox
-					#logininfo
-						form(name="form" method="post" action="/bloglogin")
-							label Email:
-							input#username(type="text" name="email" placeholder="email")
-							br
-							label Password:
-							input#password(type="password" name="password" placeholder="password")
-							br
-							input(type="checkbox" name="checkbox") 
-							label Remember username
-							br
-							br
-							button(type="submit") Submit 
-			h2#error-message= message
+				.formbox
+					form(name="form" method="post" action="/bloglogin") 
+						h1 	Login
+						br
+						br
+						label Email:
+						input#username(type="text" name="email" placeholder="email")
+						br
+						label Password:
+						input#password(type="password" name="password" placeholder="password")
+						br
+						input(type="checkbox" name="checkbox") 
+						br
+						button(type="submit").btn.waves-effect.waves-light Submit 
+							i.material-icons.right send
+						br
+						br
+						h5 #{message}
+		
 
 		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
 		script(type="text/javascript" src="js/materialize.min.js")
