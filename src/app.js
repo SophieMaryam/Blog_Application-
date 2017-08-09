@@ -35,15 +35,15 @@ const User = connection.define('user', {
 	username: {
 		type: Sequelize.STRING,
 		unique:true,
-		allowNull: false
+		// allowNull: false
 	}, 
 	email: {
 		type: Sequelize.STRING,
 		unique:true,
-		allowNull: false
+		// allowNull: false
 	},
 	password: {
-		type: Sequelize.STRING,
+		type: Sequelize.STRING
 	},
 },  {
 		timestamps:false
@@ -52,12 +52,12 @@ const User = connection.define('user', {
 
 const Blogs = connection.define('blogs', {
 	title: {
-		type: Sequelize.STRING,
-		allowNull: false
+		type: Sequelize.STRING
+		// allowNull: false
 		},
 	blog: {
-		type: Sequelize.STRING,
-		allowNull: false
+		type: Sequelize.STRING
+		// allowNull: false
 	},
 },  {
 		timestamps:false
@@ -76,11 +76,11 @@ connection.sync();
 
 // REGISTER PAGE
 
-app.get('/user/new', (req, res) => {
+app.get('/register/new', (req, res) => {
 	res.render('register')
 });
 
-app.post('/user', (req,  res) =>{
+app.post('/registeruser', (req,  res) =>{
 	User.create({
 		username: req.body.registername,
 		email: req.body.registeremail,
@@ -138,10 +138,22 @@ Comments.belongsTo(User);
 Blogs.belongsTo(User);
 
 app.post('/comments', (req,res) => {
-	Blogs.create({
-		comment: req.body.comment,
+	var user = req.session.user.username;
+	var comment = req.session.comments;
+	var blog = req.session.blogs;
+	
+	User.findOne({
+		where: {
+			name: user
+		}
 	})
-	.then(() => {
+	.then((theuser) => {
+		return theuser.createComments({
+			comment:comment,
+			blog:blog
+		})
+	})
+	.then(commented => {
 		res.redirect('/wall')
 	})
 	.catch((err) => {
@@ -150,17 +162,13 @@ app.post('/comments', (req,res) => {
 })
 
 app.get('/wall', (req,res) => {
+	console.log('comment' + comment);
+
 	Blogs.findAll({
 		include: [
 			{
 				model:users,
-			}
-		],
-		include: [
-			{
-				model:comments,
-			}
-		]
+			}]
 	}).then(data => {
 		res.render('blogwall', {info:data})
 	})
@@ -246,7 +254,7 @@ app.post('/writingblog', (req, res) => {
 app.get('/myposts', (req, res) => {
 	const user = req.session.user;
 	Blogs.findAll({
-		where: req.session.user.id
+		where: user.id
 	}).then((post) => {
 		res.render('profileposts', {list: post})
 	})	

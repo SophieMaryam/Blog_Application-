@@ -9,7 +9,13 @@ html
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 	body#homebody
 		header
-			nav.amber.lighten-2.black-text.center(id="spotlight") Spotlight
+			nav.white.black-text.center(id="spotlight") Spotlight
+				a(href="#").brand-logo.black-text.right Register
+				ul.right.hide-on-med-and-down
+					li
+						a(href="#") Navbar Link
+		.rows
+			img(src="http://joco.name/wp-content/uploads/2014/03/rgb_2048_1.png").col.s12
 		.options
 			if user
 				a(href='/profile/' + user.id) View profile
@@ -33,7 +39,7 @@ html
 					br
 					br
 					h5 #{message}
-	
+
 
 		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
 		script(type="text/javascript" src="js/materialize.min.js")

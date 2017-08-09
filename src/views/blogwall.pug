@@ -10,8 +10,8 @@ html
 	body
 		div#allblogs
 			h1#walltitle The Wall 
-			each post in info
-					ul.post
+			each post in posts
+					ul
 					br 
 					br
 					li=post.title
@@ -22,14 +22,16 @@ html
 					br
 					li=info.users
 					br
-					form(name="form" method="post" action="/comments")
-						label Comment:
-						input#password(type="text" name="comments" placeholder="Comment..." required)
-						br
-						br
-						button(type="submit") Submit 
+					li 	
+						form(name="form" method="post" action="/comments")
+							label Comment:
+							input#password(type="text" name="comments" placeholder="Comment..." required)
+							input(type='hidden' name='postId' value='blog.id')
+							br
+							br
+							button(type="submit") Submit 
 
-			a(href='/profile:myposts')
+			a(href='/myposts')
 				button.button(type=button) Return Back
 				
 
