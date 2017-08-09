@@ -30,18 +30,24 @@ html
 					h3 Email: 
 						h4 #{user.email}
 				.col.s8
-					h3 Posts: 
-					form(name="form" method="post" action="/writingblog")
-						input#title(type="text" name="title" placeholder="Blog Title" required)
-						br
-						br
-						textarea(id="textspace", name="blog", placeholder="My thoughts...", rows="100", columns="100" required)
-						br
-						br
-						input(id="submit" type="submit", value="Submit")
+					.model
+						.model-content
+							h4 Modal Header
+							h3 Posts: 
+							form(name="form" method="post" action="/writingblog")
+								input#title(type="text" name="title" placeholder="Blog Title" required)
+								br
+								br
+								textarea(id="textspace", name="blog", placeholder="My thoughts...", rows="100", columns="100" required)
+								br
+								br
+								input(id="submit" type="submit", value="Submit")
 
 
-						h2#err-message= message
+								h2#err-message= message
+						.model-footer
+							a(href="#").modal-action.model-cloe.waves-effect.waves-green.btn-flat Agree
+
 
 		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
 		script(type="text/javascript" src="js/materialize.min.js")

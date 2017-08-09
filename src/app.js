@@ -2,7 +2,6 @@ const express = require('express'); // requiring express module
 const app = express(); // instantiating express 
 
 const bodyParser = require('body-parser'); // requiring body-parser module - parses the data we are receiving from the user so we can use it 
-
 app.use('/', bodyParser.urlencoded({extended:true}));
 
 // Model Configuration 

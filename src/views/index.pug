@@ -7,35 +7,33 @@ html
 		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 		link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css")
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
-
 	body#homebody
 		header
-			nav.pink.white-text.center Spotlight
+			nav.amber.lighten-2.black-text.center(id="spotlight") Spotlight
 		.options
 			if user
 				a(href='/profile/' + user.id) View profile
 				br
 				a(href='/logout') Log out
 			else
-				.formbox
-					form(name="form" method="post" action="/bloglogin") 
-						h1 	Login
-						br
-						br
-						label Email:
-						input#username(type="text" name="email" placeholder="email")
-						br
-						label Password:
-						input#password(type="password" name="password" placeholder="password")
-						br
-						input(type="checkbox" name="checkbox") 
-						br
-						button(type="submit").btn.waves-effect.waves-light Submit 
-							i.material-icons.right send
-						br
-						br
-						h5 #{message}
-		
+				form(name="form" method="post" action="/bloglogin" id="form") 
+					h2 	Login
+					br
+					br
+					label Email:
+					input#username(type="text" name="email" placeholder="email")
+					br
+					label Password:
+					input#password(type="password" name="password" placeholder="password")
+					br
+					input(type="checkbox" name="checkbox") 
+					br
+					button(type="submit").btn.amber.lighten-2.waves-effect.waves-light.black-text Submit 
+						i.material-icons.right send
+					br
+					br
+					h5 #{message}
+	
 
 		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
 		script(type="text/javascript" src="js/materialize.min.js")
