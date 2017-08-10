@@ -10,7 +10,7 @@ html
 	body
 		header
 			nav.white.black-text.center(id="spotlight") Spotlight blog
-				a(href="#", data-activates="dropdown1" id="").dropdown-button.btn.right Options
+				a(href="#", data-activates="dropdown1" id="").dropdown-button.btn.right.white.black-text Options
 				ul(id="dropdown1").dropdown-content 
 					li 
 						a(href="/myposts").brand-logo.black-text.right My Posts
@@ -20,51 +20,44 @@ html
 					li 
 						a(href="/myposts").brand-logo.black-text.right Logout
 			.rows
-				img#image(src="/images/backgroundimage.png").col.s12
+				img#image(src="/images/backgroundimage.png").col.s12.responsive-img
 			
-		.contaner
+		.container
 			.row
 				.col.s4
-					h3.amber-text.lighten-2 Username: 
-						h4 #{user.username}
+					h5.amber-text.lighten-2x(id="h5") Username: 
+						h6 #{user.username}
 					br
 					br
-					h3.amber-text.lighten-2 Email: 
-						h4 #{user.email}
+					h5.amber-text.lighten-2(id="h5") Email: 
+						h6 #{user.email}
+					button.waves-effect.waves-light.btn.modal-trigger.center-align(href="#newpost", data-target="newpost") NEW POST
+					#newpost.modal
+						.modal-content
+							h4 Write a new post
+							form(name="form" method="post" action="/writingblog" autocomplete='off')
+								.row
+									.input-field
+										input(type="text", name="title", placeholder="Blog Title" required)
+								br
+								.row
+									.input-field
+										input(id="textspace", name="blog", placeholder="My thoughts...", rows="100", columns="100" required).materialize-textarea
+									br
+									br
+								button(id="submit" type="submit", value="Submit").btn.modal-action.amber.lighten-2.waves-effect.waves-light.black-text Submit
+									h2#err-message= message
 				.col.s8
-					.model
-						.model-content
-							h4 Modal Header
-							h3 Posts: 
-							form(name="form" method="post" action="/writingblog")
-								input#title(type="text" name="title" placeholder="Blog Title" required)
-								br
-								br
-								textarea(id="textspace", name="blog", placeholder="My thoughts...", rows="100", columns="100" required)
-								br
-								br
-								input(id="submit" type="submit", value="Submit").btn.amber.lighten-2.waves-effect.waves-light.black-text 
-
-
-								h2#err-message= message
-						.model-footer
-							a(href="#").modal-action.model-cloe.waves-effect.waves-green.btn-flat Agree
+					h3 Search All Posts: 
+					form(name="form"  method="post" action="/search")
+						input(name="search" type="text" placeholder="search title") 
+						button(id="submit" type="submit", value="Submit").btn.modal-action.amber.lighten-2.waves-effect.waves-light.black-text Submit
 
 
 		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
 		script(type="text/javascript" src="js/materialize.min.js")
 
 		script.
-			$(document).ready(function(){
-			 $('#dropdown1').dropdown({
-				inDuration: 300,
-				outDuration: 225,
-				constrainWidth: false, // Does not change width of dropdown to that of the activator
-				hover: true, // Activate on hover
-				gutter: 0, // Spacing from edge
-				belowOrigin: false, // Displays dropdown below the button
-				alignment: 'left', // Displays dropdown with edge aligned to the left of button
-				stopPropagation: false // Stops event propagation
-				}
-			);
+			$(document).ready(() => {
+				$('#newpost').modal();
 			});

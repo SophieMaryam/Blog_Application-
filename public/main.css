@@ -44,13 +44,24 @@ html, body {
 }
 
 
-#button {
-	margin-left:10px;
-}
-
 
 /*PROFILE*/
 
 #sidebar {
 	height:600px;
+}
+
+#hello 	{
+	margin-left:10px;
+}
+
+/*WALL*/
+
+#allblogs {
+	margin-left:50px;
+}
+
+
+#para {
+	font-weight:bold;
 }

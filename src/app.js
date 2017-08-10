@@ -20,7 +20,8 @@ app.use(express.static(__dirname + "/../public"));
 
 // Sessions
 
-const session = require('express-session'); // requiring session module 
+const session = require('express-session'); // requiring session module
+
 
 app.use(session({
 	secret: "This is a secret",
@@ -261,6 +262,33 @@ app.get('/myposts', (req, res) => {
 			res.redirect('/?message=' + encodeURIComponent("Error."));
 		});
 	}
+});
+
+app.get('/post/:blogId', (req, res) => {
+	const blogId = req.params.blogId;
+	console.log('blogid' + blogId);
+
+	Blogs.findOne({
+		where: {
+			id:blogId
+		}
+	})
+	.then((sendblog) => {
+		res.render('singpost', {post:sendblog})
+	})
+});
+
+app.post('/search', (req,res) => {
+	var input = req.body.search;
+
+		Blogs.findOne({
+			where: {
+				title:input
+			}
+		})
+			.then((blogfound) => {
+				res.redirect(`/post/${blogfound.id}`);
+			});
 });
 
 
