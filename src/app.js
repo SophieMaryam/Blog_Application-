@@ -63,10 +63,10 @@ const Blogs = connection.define('blogs', {
 		timestamps:false
 	});
 
-const Comments = connection.define('comments', {
+const Comment = connection.define('comments', {
 	comments: {
-		type: Sequelize.STRING,
-		allowNull: false
+		type: Sequelize.STRING
+		// allowNull: false
 	},
 },  {
 		timestamps:false
@@ -75,11 +75,11 @@ const Comments = connection.define('comments', {
 
 // Model Relationships
 User.hasMany(Blogs);
-Blogs.hasMany(Comments);
-User.hasMany(Comments);
+Blogs.hasMany(Comment);
+User.hasMany(Comment);
 
-Comments.belongsTo(Blogs);
-Comments.belongsTo(User);
+Comment.belongsTo(Blogs);
+Comment.belongsTo(User);
 Blogs.belongsTo(User);
 
 connection.sync();
@@ -102,7 +102,7 @@ app.post('/registeruser', (req,  res) =>{
 		res.redirect(`/profile/${user.id}`)
 	})
 	.catch((err) => {
-		console.log(err);
+		console.log("Error" + err);
 	})
 
 });
@@ -111,39 +111,41 @@ app.post('/registeruser', (req,  res) =>{
 
 app.get('/wall', (req, res) => {
 	var user = req.session.user;
+	console.log(user);
 	if(user === undefined){
 		res.redirect('/login?message=' + encodeURIComponent('Please log in to view all posts.'))
 	} else {
 		User.findAll() // first query 
-		.then((everyuser) => {
-			Blogs.findAll({ // second query 
-			include: [{ // only works for one model - can't get info from two models in one query 
-					model: Comments, // comment model name
-					as: 'comments' // the alias 
-				}]
+			.then((everyuser) => {
+				Blogs.findAll({ // second query 
+				include: [{ // only works for one model - can't get info from two models in one query 
+						model: Comment, // comment model name
+						as: 'comments' // the alias 
+					}]
+				})
+			.then((everypost) => {
+				res.render('blogwall', {everypost: everypost, users:everyuser})
 			})
-		.then((everypost) => {
-			res.render('blogwall', {info: everypost, users:everyuser})
-		})
-		.catch((err) => {
-			console.log(err)
-		})
+			.catch((err) => {
+				console.log("Error" + err)
+			})
 		});
 	}
 					
 });
 
 app.post('/comments', (req,res) => {
-	var user = req.session.user;
+	var user = req.session.user.username;
+	console.log(user);
 
 	User.findOne({
 		where: {
-			userame: user, // where the username (table column) is equal to the user in the session
+			username: user, // where the username (table column) is equal to the user in the session
 		}
 	})
 	.then((theuser) => {
-		return theuser.createComments({
-			comment:req.body.comments,
+		return theuser.createComment({
+			comments:req.body.comments,
 			userId: req.body.userId,
 			blogId: req.body.blogId
 		})
@@ -162,7 +164,7 @@ app.post('/comments', (req,res) => {
 app.get('/', (req, res) => {
 	res.render('index', {
 		message: req.query.message,
-		user: req.session.user               // ??????
+		user: req.session.user             
 	});
 });
 
@@ -190,7 +192,7 @@ app.post('/bloglogin', (req, res) => {
 			res.redirect(`/profile/${user.id}`)
 		}
 	}).catch(function(err){
-		console.log(err)
+		console.log("Error" + err)
 		res.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
 	});
 }); 
@@ -228,7 +230,7 @@ app.post('/writingblog', (req, res) => {
 		res.redirect('/wall')
 	})
 	.catch((err) => {
-		console.log(err);
+		console.log("Error" + err);
 	})
 });
 
@@ -244,7 +246,7 @@ app.get('/myposts', (req, res) => {
 				id: user.id // filter it where the column id equals the user of this
 			}, 
 			include: [{
-				model: Comments,
+				model: Comment,
 				as: 'comments'
 			}]
 		})

@@ -15,7 +15,7 @@ html
 			img#image(src="/images/backgroundimage.png").col.s12
 		div#allblogs
 			h1#walltitle The Wall 
-			each post in info
+			each post in everypost
 				//- info and users (below) refers to the key in the objects you render
 				each user in users
 					if post.userId === user.id 
@@ -28,7 +28,7 @@ html
 									if comment.userId === user.id
 										p.comment
 											p #{user.username} commented:
-											p #{comments.comments}  
+											p #{comment.comments}  
 											//- comments.comments (alias.columnname)
 							form(name="form" method="post" action="/comments")
 								label Comment:
