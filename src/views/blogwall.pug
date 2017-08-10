@@ -8,20 +8,27 @@ html
 		link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css")
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 	body
+		header
+			nav.white.black-text.center(id="spotlight") Spotlight blog
+				a(href="register/new").brand-logo.black-text.right Register
+		.rows
+			img#image(src="/images/backgroundimage.png").col.s12
 		div#allblogs
 			h1#walltitle The Wall 
 			each post in info
+				//- info and users (below) refers to the key in the objects you render
 				each user in users
-					if post.userId === user.id
-						p #{user.username} wrote "#{post.title}"
-						p #{post.body}
+					if post.userId === user.id 
+						//- userId refers to the column name in comments === to the individuals who wrote the comment, do this:
+						p #{user.username} wrote: "#{post.title}"
+						p #{post.blog}
 						div.comments
 							each comment in post.comments
 								each user in users
 									if comment.userId === user.id
 										p.comment
-											i #{user.username} commented:
-											#{comments.comments}  
+											p #{user.username} commented:
+											p #{comments.comments}  
 											//- comments.comments (alias.columnname)
 							form(name="form" method="post" action="/comments")
 								label Comment:

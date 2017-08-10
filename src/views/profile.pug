@@ -9,22 +9,27 @@ html
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 	body
 		header
-			nav.pink.white-text.center Spotlight
-			//- ul
-			//- li	
-			//- 	a(href='/myposts') Posts
-			//- 		button.button(type=button)
-			//- 	a(href='/wall').btn
-			//- 	a(href='/logout').btn.
-				
+			nav.white.black-text.center(id="spotlight") Spotlight blog
+				a(href="#", data-activates="dropdown1" id="").dropdown-button.btn.right Options
+				ul(id="dropdown1").dropdown-content 
+					li 
+						a(href="/myposts").brand-logo.black-text.right My Posts
+					li 
+						a(href="/myposts").brand-logo.black-text.right Wall
+					li.divider
+					li 
+						a(href="/myposts").brand-logo.black-text.right Logout
+			.rows
+				img#image(src="/images/backgroundimage.png").col.s12
+			
 		.contaner
 			.row
 				.col.s4
-					h3 Name: 
+					h3.amber-text.lighten-2 Username: 
 						h4 #{user.username}
 					br
 					br
-					h3 Email: 
+					h3.amber-text.lighten-2 Email: 
 						h4 #{user.email}
 				.col.s8
 					.model
@@ -38,7 +43,7 @@ html
 								textarea(id="textspace", name="blog", placeholder="My thoughts...", rows="100", columns="100" required)
 								br
 								br
-								input(id="submit" type="submit", value="Submit")
+								input(id="submit" type="submit", value="Submit").btn.amber.lighten-2.waves-effect.waves-light.black-text 
 
 
 								h2#err-message= message
@@ -49,3 +54,7 @@ html
 		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
 		script(type="text/javascript" src="js/materialize.min.js")
 
+		script.
+			$(document).ready(function(){
+				('dropdown-button').dropdown('open')
+			});

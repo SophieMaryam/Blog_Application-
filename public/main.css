@@ -35,7 +35,6 @@ html, body {
 	font-family: 'Raleway', sans-serif;
 }
 
-
 /*REGISTER*/
 
 #spotlighttwo {
@@ -44,3 +43,14 @@ html, body {
 	text-transform:uppercase;
 }
 
+
+#button {
+	margin-left:10px;
+}
+
+
+/*PROFILE*/
+
+#sidebar {
+	height:600px;
+}

@@ -35,12 +35,12 @@ const User = connection.define('user', {
 	username: {
 		type: Sequelize.STRING,
 		unique:true,
-		// allowNull: false
+		allowNull: false
 	}, 
 	email: {
 		type: Sequelize.STRING,
 		unique:true,
-		// allowNull: false
+		allowNull: false
 	},
 	password: {
 		type: Sequelize.STRING
@@ -52,12 +52,12 @@ const User = connection.define('user', {
 
 const Blogs = connection.define('blogs', {
 	title: {
-		type: Sequelize.STRING
-		// allowNull: false
+		type: Sequelize.STRING,
+		allowNull: false
 		},
 	blog: {
-		type: Sequelize.STRING
-		// allowNull: false
+		type: Sequelize.STRING,
+		allowNull: false
 	},
 },  {
 		timestamps:false
