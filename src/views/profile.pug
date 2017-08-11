@@ -11,16 +11,16 @@ html
 		header
 			nav.white.black-text.center.spotlight
 				ul
-					li Spotlight blog
-					li#listheader
-						a(href="/myposts").black-text Posts
-					li#listheader
-						a(href="/myposts").black-text Wall
-					li#listheader
-						a(href="/myposts").black-text Logout
+					li.center Spotlight blog
+					li
+						a(href="/wall").black-text Wall
+					li
+						a(href="/myposts").black-text My Posts
+					li
+						a(href="/logout").black-text Logout
 
 		.rows
-			img#image(src="/images/backgroundimage.png").col.s12.responsive-img
+			img#image(src="/images/copy.png").col.s12.responsive-img
 			
 		.container
 			.row
@@ -48,12 +48,14 @@ html
 									br
 									br
 								button(id="submit" type="submit", value="Submit").btn.modal-action.amber.lighten-2.waves-effect.waves-light.black-text Submit
-									h2#err-message= message
+									i.material-icons.right send 
+								h2#err-message= message
 				.col.s8
 					h3(id="searchengine") Search All Posts: 
 					form(name="form"  method="post" action="/search")
 						input(name="search" type="text" placeholder="search title")
 						button(id="submit" type="submit", value="Submit").btn.modal-action.amber.lighten-2.waves-effect.waves-light.black-text.center Submit
+							i.material-icons.right send 
 
 
 		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")

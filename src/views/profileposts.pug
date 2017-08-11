@@ -9,16 +9,22 @@ html
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 
 	body
-		div#yourblogs
-			each personalpost in list
-				ul.profileposts
-				br 
-				br
-				li=personalpost.title
-				br
-				li=personalpost.blog
-				br
+		nav.white.black-text.center.spotlight
+			ul
+				li(style="font-size:30px; font-family: 'Raleway', sans-serif; text-transform:uppercase; margin-left:10px") Spotlight blog
+				li(style="font-family: 'Raleway', sans-serif; text-transform:uppercase; margin-left:10px")
+					a(href="/profile").black-text Profile
+				li(style="font-family: 'Raleway', sans-serif; text-transform:uppercase; margin-left:10px")
+					a(href="/wall").black-text Wall
+				li(style="font-family: 'Raleway', sans-serif; text-transform:uppercase; margin-left:10px")
+					a(href="/logout").black-text Logout
 
-
-		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
-		script(type="text/javascript" src="js/materialize.min.js")
+		.rows
+			img#image(src="/images/copy.png").col.s12.responsive-img
+			
+		each personalpost in list
+			ul.profileposts.z-depth-4
+				li#text1 Your Post: 
+				li#text Title: #{personalpost.title}
+				br
+				li#text Blog: #{personalpost.blog}

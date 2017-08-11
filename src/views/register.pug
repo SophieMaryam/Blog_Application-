@@ -9,10 +9,11 @@ html
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 	body
 		header
-			nav.white.black-text.center(id="spotlight") Spotlight blog
-				a(href="/").brand-logo.black-text.right Login
+			nav.white.black-text.center.spotlight 
+				nav.white.black-text.center.spotlight Spotlight blog
+					a(href="/").black-text.right Login
 		.rows
-			img#image(src="/images/backgroundimage.png").col.s12
+			img#image(src="/images/copy.png").col.s12
 		.formbox
 			form(name="form" method="post" action="/registeruser")
 				h2 Create an Account
@@ -37,10 +38,10 @@ html
 		br
 		br
 		.rows
-			img(src="/images/backgroundimage.png").col
+			img(src="/images/copy.png").col
 		footer
 			nav.white.black-text.center.upper(id="footer") Connect with other artists around the world
 
 
 		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
-		script(type="text/javascript" src="js/materialize.min.js")
+		script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js")

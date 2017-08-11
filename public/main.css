@@ -8,7 +8,6 @@ html, body {
 	font-size:30px;
 	font-family: 'Raleway', sans-serif;
 	text-transform:uppercase;
-	margin-left:10px;
 }
 
 .options {
@@ -36,53 +35,66 @@ html, body {
 	font-family: 'Raleway', sans-serif;
 }
 
-/*REGISTER*/
-
-
 /*PROFILE*/
 
-#listheader {
-	position:none;
-
-}
-
-#list {
-	display:inline;
-	position:none;
-}
-}
-
-#hello 	{
-	margin-left:10px;
-}
-
-#dropdown1 li {
-	display:inline-block;
-}
 
 #searchengine {
 	margin-top:100px;
 }
 
 
-
 /*WALL*/
 
-#allblogs {
+#walltitle {
+	text-transform:uppercase;
+	font-family: 'Raleway', sans-serif;
+}
+
+#everyblog {
 	margin-left:50px;
 }
 
+#border {
+	margin-right:200px;
+	margin-left:200px;
+	border: 2px solid black;
+	padding-top:10px;
+}
 
-#para {
+#static {
 	font-weight:bold;
 	margin-left:20px;
 }
 
-#border {
-	border:2px solid black;
-	margin-;color-interpolation-filters: 
-}
-
-#body {
+#blogbody {
 	margin-left:20px;
 }
+
+
+#commentform {
+	margin-right:200px;
+	margin-left:200px;
+}
+
+/*SINGLE POSTS*/
+
+
+/*PROFILE POSTS*/
+
+.profileposts {
+	margin-left:100px;
+	border: 2px solid black;
+	padding:10px 10px;
+	margin-right:100px;
+}
+
+#text {
+	margin-left:10px;
+}
+
+#text1 {
+	font-weight:bold;
+	margin-left:10px;
+}
+
+

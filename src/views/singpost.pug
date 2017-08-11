@@ -1,24 +1,31 @@
 doctype 
 html 
 	head
-		link(rel="stylesheet", href="main.css", type="text/css")
 		link(href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet")
 		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 		link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css")
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	style.
+
+
 	body
 		header
 			nav.white.black-text.center.spotlight
 				ul
-					li Spotlight blog
-					li#listheader
-						a(href="/myposts").black-text Posts
-					li#listheader
+					li(style="font-size:30px; font-family: 'Raleway', sans-serif; text-transform:uppercase; margin-left:10px") Spotlight blog
+					li(style="font-family: 'Raleway', sans-serif; text-transform:uppercase; margin-left:10px")
+						a(href="/profile").black-text Profile
+					li(style="font-family: 'Raleway', sans-serif; text-transform:uppercase; margin-left:10px")
+						a(href="/myposts").black-text My Posts
+					li(style="font-family: 'Raleway', sans-serif; text-transform:uppercase; margin-left:10px")
 						a(href="/myposts").black-text Wall
-					li#listheader
+					li(style="font-family: 'Raleway', sans-serif; text-transform:uppercase; margin-left:10px")
 						a(href="/myposts").black-text Logout
 		.rows
 			img#image(src="/images/backgroundimage.png").col.s12responsive-img
-
-		p.center #{post.title}
-		p.center #{post.blog}
+		br
+		br
+		h3.center(style="font-family: 'Raleway', sans-serif; margin-left:10px; font-weight:bold") Title: 
+		h5.center #{post.title}
+		h3.center(style="font-family: 'Raleway', sans-serif; margin-left:10px; font-weight:bold") Blog: 
+		h5(style="font-family: 'Raleway', sans-serif; margin-left:10px").center #{post.blog}

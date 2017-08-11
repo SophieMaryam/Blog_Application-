@@ -9,49 +9,47 @@ html
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 	body
 		header
-			nav.white.black-text.center(id="spotlight") Spotlight blog
-				a(href='/profile').brand-logo.black-text.right Profile
+			nav.white.black-text.center
+				ul.spotlight
+					li.center Spotlight blog
+					li
+						a(href="/profile").black-text Profile
+					li
+						a(href="/myposts").black-text My Posts
+					li
+						a(href="/logout").black-text Logout
 		.rows
-			img#image(src="/images/backgroundimage.png").col.s12responsive-img
-		div#allblogs
-			h1.center The Wall 
+			img#image(src="/images/copy.png").col.s12responsive-img
+		div#everyblog
+			h1.center#walltitle.amber-text.lighten-2 Wall
 			each post in everypost
 				//- info and users (below) refers to the key in the objects you render
 				each user in users
 					if post.userId === user.id 
 						//-	userId refers to the column name in comments === to the individuals who wrote the comment, do this:
-						div#border
-							p#para #{user.username} wrote:
-							a(href="/post/" + post.id)
-								p#body Title: #{post.title}
-							p#body Blog: #{post.blog}
+						div#border.z-depth-4
+							p#static #{user.username} wrote:
+							p#blogbody Title: #{post.title}
+							p#blogbody Blog: #{post.blog}
 							div.comments
 								each comment in post.comments
 									each user in users
 										if comment.userId === user.id
 											p.comment
-												p#para #{user.username} commented: 
-												p#body #{comment.comments}  
+												p#static #{user.username} commented: 
+												p#blogbody #{comment.comments}
 												//- comments.comments (alias.columnname)
+
 						br
 						br
-						form(name="form" method="post" action="/comments")
+						form(name="form" method="post" action="/comments" id="commentform")
 							label Comment:
 							input#password(type="text" name="comments" placeholder="Comment..." required)
 							input(type='hidden' name='blogId' value=post.id)
 							br
 							br
-							button(type="submit").btn.amber.lighten-2.waves-effect.waves-light.black-text  Submit 
+							button(type="submit").btn.amber.lighten-2.waves-effect.waves-light.black-text  Submit
+								i.material-icons.right send  
 							br
 							br
-
-			a(href='/myposts')
-				button.button(type=button) Return Back
-				
-
-
-		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
-		script(type="text/javascript" src="js/materialize.min.js")
-
-
-		
+							br
