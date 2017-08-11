@@ -112,6 +112,13 @@ app.post('/registeruser', (req,  res) =>{
 
 app.get('/wall', (req, res) => {
 	var user = req.session.user;
+
+	var user = req.session.user;
+	if(!user){
+		res.redirect('/?message=' + encodeURIComponent("Please log in."));
+	}
+
+
 	console.log(user);
 	if(user === undefined){
 		res.redirect('/login?message=' + encodeURIComponent('Please log in to view all posts.'))
@@ -212,6 +219,10 @@ app.get('/logout', (req, res) => {
 
 app.get('/profile/:id', (req, res) => {
 	var user = req.session.user;
+	if(!user){
+		res.redirect('/?message=' + encodeURIComponent("Please log in."));
+	}
+
 	if(user === undefined){
 		res.redirect('/?message=' + encodeURIComponent("Please log in to view your profile."));
 	} else {
@@ -239,6 +250,11 @@ app.post('/writingblog', (req, res) => {
 // PROFILE PAGE/POSTS
 app.get('/myposts', (req, res) => {
 	const user = req.session.user;
+
+	if(!user){
+		res.redirect('/?message=' + encodeURIComponent("Please log in."));
+	}
+
 	if(user === undefined){
 		res.redirect('login/?message=' + encodeURIComponent("Please log in to view your posts."));
 	} else {
@@ -265,6 +281,11 @@ app.get('/myposts', (req, res) => {
 });
 
 app.get('/post/:blogId', (req, res) => {
+	const user = req.session.user;
+	if(!user){
+		res.redirect('/?message=' + encodeURIComponent("Please log in."));
+	}
+
 	const blogId = req.params.blogId;
 	console.log('blogid' + blogId);
 

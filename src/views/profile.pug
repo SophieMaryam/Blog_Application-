@@ -2,35 +2,37 @@ doctype
 html
 	head
 		title Profile 
-		link(rel="stylesheet" href="./main.css" type="text/css")
+		link(rel="stylesheet" href="main.css" type="text/css")
 		link(href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet")
 		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 		link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css")
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 	body
 		header
-			nav.white.black-text.center(id="spotlight") Spotlight blog
-				a(href="#", data-activates="dropdown1" id="").dropdown-button.btn.right.white.black-text Options
-				ul(id="dropdown1").dropdown-content 
-					li 
-						a(href="/myposts").brand-logo.black-text.right My Posts
-					li 
-						a(href="/myposts").brand-logo.black-text.right Wall
-					li.divider
-					li 
-						a(href="/myposts").brand-logo.black-text.right Logout
-			.rows
-				img#image(src="/images/backgroundimage.png").col.s12.responsive-img
+			nav.white.black-text.center.spotlight
+				ul
+					li Spotlight blog
+					li#listheader
+						a(href="/myposts").black-text Posts
+					li#listheader
+						a(href="/myposts").black-text Wall
+					li#listheader
+						a(href="/myposts").black-text Logout
+
+		.rows
+			img#image(src="/images/backgroundimage.png").col.s12.responsive-img
 			
 		.container
 			.row
 				.col.s4
-					h5.amber-text.lighten-2x(id="h5") Username: 
+					h5.amber-text.lighten-2x(id="hello") Username: 
 						h6 #{user.username}
 					br
 					br
-					h5.amber-text.lighten-2(id="h5") Email: 
+					h5.amber-text.lighten-2(id="hello") Email: 
 						h6 #{user.email}
+					br
+					br
 					button.waves-effect.waves-light.btn.modal-trigger.center-align(href="#newpost", data-target="newpost") NEW POST
 					#newpost.modal
 						.modal-content
@@ -48,15 +50,14 @@ html
 								button(id="submit" type="submit", value="Submit").btn.modal-action.amber.lighten-2.waves-effect.waves-light.black-text Submit
 									h2#err-message= message
 				.col.s8
-					h3 Search All Posts: 
+					h3(id="searchengine") Search All Posts: 
 					form(name="form"  method="post" action="/search")
-						input(name="search" type="text" placeholder="search title") 
-						button(id="submit" type="submit", value="Submit").btn.modal-action.amber.lighten-2.waves-effect.waves-light.black-text Submit
+						input(name="search" type="text" placeholder="search title")
+						button(id="submit" type="submit", value="Submit").btn.modal-action.amber.lighten-2.waves-effect.waves-light.black-text.center Submit
 
 
 		script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
-		script(type="text/javascript" src="js/materialize.min.js")
-
+		script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js")
 		script.
 			$(document).ready(() => {
 				$('#newpost').modal();

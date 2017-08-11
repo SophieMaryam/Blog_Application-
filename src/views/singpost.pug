@@ -1,12 +1,24 @@
 doctype 
 html 
 	head
+		link(rel="stylesheet", href="main.css", type="text/css")
+		link(href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet")
+		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+		link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 	body
 		header
-			nav.white.black-text.center(id="spotlight") Spotlight blog
-				a(href="register/new").brand-logo.black-text.right Register
+			nav.white.black-text.center.spotlight
+				ul
+					li Spotlight blog
+					li#listheader
+						a(href="/myposts").black-text Posts
+					li#listheader
+						a(href="/myposts").black-text Wall
+					li#listheader
+						a(href="/myposts").black-text Logout
 		.rows
 			img#image(src="/images/backgroundimage.png").col.s12responsive-img
 
-		p=post.title
-		p=post.blog
+		p.center #{post.title}
+		p.center #{post.blog}

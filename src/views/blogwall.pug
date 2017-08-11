@@ -10,7 +10,7 @@ html
 	body
 		header
 			nav.white.black-text.center(id="spotlight") Spotlight blog
-				a(href="register/new").brand-logo.black-text.right Register
+				a(href='/profile').brand-logo.black-text.right Profile
 		.rows
 			img#image(src="/images/backgroundimage.png").col.s12responsive-img
 		div#allblogs
@@ -20,25 +20,30 @@ html
 				each user in users
 					if post.userId === user.id 
 						//-	userId refers to the column name in comments === to the individuals who wrote the comment, do this:
-						p#para #{user.username} wrote:
-						a(href="/post/" + post.id)
-							p Title: #{post.title}
-						p Blog: #{post.blog}
+						div#border
+							p#para #{user.username} wrote:
+							a(href="/post/" + post.id)
+								p#body Title: #{post.title}
+							p#body Blog: #{post.blog}
 							div.comments
 								each comment in post.comments
 									each user in users
 										if comment.userId === user.id
 											p.comment
 												p#para #{user.username} commented: 
-												p #{comment.comments}  
+												p#body #{comment.comments}  
 												//- comments.comments (alias.columnname)
-								form(name="form" method="post" action="/comments")
-									label Comment:
-									input#password(type="text" name="comments" placeholder="Comment..." required)
-									input(type='hidden' name='blogId' value=post.id)
-									br
-									br
-									button(type="submit").btn.amber.lighten-2.waves-effect.waves-light.black-text  Submit 
+						br
+						br
+						form(name="form" method="post" action="/comments")
+							label Comment:
+							input#password(type="text" name="comments" placeholder="Comment..." required)
+							input(type='hidden' name='blogId' value=post.id)
+							br
+							br
+							button(type="submit").btn.amber.lighten-2.waves-effect.waves-light.black-text  Submit 
+							br
+							br
 
 			a(href='/myposts')
 				button.button(type=button) Return Back
