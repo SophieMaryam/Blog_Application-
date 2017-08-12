@@ -43,6 +43,8 @@ html, body {
 }
 
 
+
+
 /*WALL*/
 
 #walltitle {
@@ -57,7 +59,7 @@ html, body {
 #border {
 	margin-right:200px;
 	margin-left:200px;
-	border: 2px solid black;
+	border: 1px solid #A9A9A9;
 	padding-top:10px;
 }
 
@@ -82,10 +84,11 @@ html, body {
 /*PROFILE POSTS*/
 
 .profileposts {
-	margin-left:100px;
-	border: 2px solid black;
+	margin-left:300px;
+	border: 1px solid #A9A9A9
 	padding:10px 10px;
-	margin-right:100px;
+	margin-right:300px;
+	padding: 10px 10px;
 }
 
 #text {

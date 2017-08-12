@@ -19,7 +19,7 @@ html
 					li
 						a(href="/logout").black-text Logout
 		.rows
-			img#image(src="/images/copy.png").col.s12responsive-img
+			img#image(src="/images/copy.png").col.s12.responsive-img
 		div#everyblog
 			h1.center#walltitle.amber-text.lighten-2 Wall
 			each post in everypost
@@ -31,6 +31,7 @@ html
 							p#static #{user.username} wrote:
 							p#blogbody Title: #{post.title}
 							p#blogbody Blog: #{post.blog}
+							hr
 							div.comments
 								each comment in post.comments
 									each user in users
