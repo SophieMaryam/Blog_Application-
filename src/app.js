@@ -11,6 +11,9 @@ const connection = new Sequelize('blogapplication', 'postgres', '1626', {
 	dialect: 'postgres'
 });
 
+// bcrypt
+const bcrypt = require('bcrypt');
+
 // Setting up Pug
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
@@ -93,17 +96,31 @@ app.get('/register/new', (req, res) => {
 });
 
 app.post('/registeruser', (req,  res) =>{
+	let password = req.body.registerpassword;
+	let email = req.body.registeremail;
+	let username = req.body.registername;
+	
+	bcrypt.hash(password, 10, (err, hash) => {
+		console.log("the hash" + hash)
+		if(err){
+			console.log(err);
+		} else {
+			console.log(hash)
+		}
+
 	User.create({
-		username: req.body.registername,
-		email: req.body.registeremail,
-		password: req.body.registerpassword
+		username: username,
+		email: email,
+		password: hash
 	})
 	.then((user) => {
 		req.session.user = user // req.session.the name of your table you are linking to
-		res.redirect(`/profile/${user.id}`)
+		res.redirect(`/profile`)
 	})
 	.catch((err) => {
 		console.log("Error" + err);
+	})
+	
 	})
 
 });
@@ -176,6 +193,7 @@ app.post('/bloglogin', (req, res) => {
 	console.log(req.body.email);
 	console.log(req.body.password);
 
+	
 	if(req.body.email.length === 0){
 		res.redirect('/?message=' + encodeURIComponent("Please fill out your email address."));
 		return;	
@@ -190,10 +208,21 @@ app.post('/bloglogin', (req, res) => {
 		where: {
 			email: req.body.email
 		}
-	}).then(function(user){
-		if(user !== null && req.body.password === user.password){
+	}).then((user) => {
+		if(user !== null){
 			req.session.user = user;
-			res.redirect(`/profile`)
+			bcrypt.compare(req.body.password, user.password, (err, result) => { // first argument is the password the user typed in, and thes second is the one in the database
+				console.log("hello")
+				if(err){
+					console.log(err)
+				} else {
+					if(result === undefined){
+						console.log("Error")
+					} else {
+						res.redirect(`/profile`)
+					}
+				}
+			})
 		}
 	}).catch(function(err){
 		console.log("Error" + err)
