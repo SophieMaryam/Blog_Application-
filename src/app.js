@@ -212,14 +212,13 @@ app.post('/bloglogin', (req, res) => {
 		if(user !== null){
 			req.session.user = user;
 			bcrypt.compare(req.body.password, user.password, (err, result) => { // first argument is the password the user typed in, and thes second is the one in the database
-				console.log("hello")
 				if(err){
 					console.log(err)
 				} else {
-					if(result === undefined){
-						console.log("Error")
-					} else {
+					if(result === true){
 						res.redirect(`/profile`)
+					} else {
+						console.log("Error")
 					}
 				}
 			})
