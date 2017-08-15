@@ -15,7 +15,7 @@ const connection = new Sequelize('blogapplication', 'postgres', '1626', {
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
 
-// CSS Page
+// CSS PAGE
 app.use(express.static(__dirname + "/../public"));
 
 // Sessions
@@ -257,29 +257,22 @@ app.get('/myposts', (req, res) => {
 
 	if(user === undefined){
 		res.redirect('login/?message=' + encodeURIComponent("Please log in to view your posts."));
-	} else {
-		User.findAll({
+	} else {		
+		Blogs.findAll({
 			where: {
-				id: user.id // filter it where the column id equals the user of this
-			}, 
-			include: [{
-				model: Comment,
-				as: 'comments'
-			}]
+				userId: user.id
+			}
 		})
-		.then((users) => { 	 // this will include comments if they exist		
-			Blogs.findAll()
-			.then((post) => {
-				res.render('profileposts', {users:users, list:post})
-			})
+		.then((post) => {
+			res.render('profileposts', {user:user, list:post})
 		})
+
 		.catch((err) => {
 			console.log('Error: ' + err);
 			res.redirect('/?message=' + encodeURIComponent("Error."));
 		});
 	}
 });
-
 app.get('/post/:blogId', (req, res) => {
 	const user = req.session.user;
 	if(!user){
