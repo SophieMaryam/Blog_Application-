@@ -114,13 +114,9 @@ app.get('/wall', (req, res) => {
 	var user = req.session.user;
 
 	var user = req.session.user;
-	if(!user){
-		res.redirect('/?message=' + encodeURIComponent("Please log in."));
-	}
-
-
+	
 	console.log(user);
-	if(user === undefined){
+	if(user === undefined){ // same as (!user)
 		res.redirect('/login?message=' + encodeURIComponent('Please log in to view all posts.'))
 	} else {
 		User.findAll() // first query 
@@ -197,7 +193,7 @@ app.post('/bloglogin', (req, res) => {
 	}).then(function(user){
 		if(user !== null && req.body.password === user.password){
 			req.session.user = user;
-			res.redirect(`/profile/${user.id}`)
+			res.redirect(`/profile`)
 		}
 	}).catch(function(err){
 		console.log("Error" + err)
@@ -217,7 +213,7 @@ app.get('/logout', (req, res) => {
 
 // PROFILE PAGE
 
-app.get('/profile/:id', (req, res) => {
+app.get('/profile', (req, res) => {
 	var user = req.session.user;
 	if(!user){
 		res.redirect('/?message=' + encodeURIComponent("Please log in."));
