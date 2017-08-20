@@ -23,10 +23,13 @@ html
 				input#registeruser(type="text" name="registername" placeholder="username" required)
 				br
 				label Email:
-				input#registeremail(type="text", name="registeremail", placeholder="example@email.com" required)
+				input#registeremail(type="email", name="registeremail", placeholder="example@email.com" required)
 				br
 				label Password:
-				input#registerpassword(type="password" name="registerpassword" placeholder="password" required)
+				input#registerpassword(type="password" name="registerpassword" placeholder="password" maxlength="50" minlength="8" required)
+				br
+				label Password Confirmation:
+				input#registerconfpassword(type="password" name="registerpassconfirm" placeholder="confirm password" maxlength="50" minlength="8" required)
 				br
 				br
 				button#button(type="submit").btn.amber.lighten-2.waves-effect.waves-light.black-text Submit 

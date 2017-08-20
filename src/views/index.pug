@@ -15,7 +15,7 @@ html
 			img#image(src="/images/backgroundimagetwo.png").col.s12.responsive-img
 		.options
 			if user
-				a(href='/profile/' + user.id) View profile
+				a(href='/profile') View profile
 				br
 				a(href='/logout') Log out
 			else
@@ -24,10 +24,10 @@ html
 					br
 					br
 					label Email:
-					input#username(type="text" name="email" placeholder="email")
+					input#username(type="email" name="email" placeholder="email")
 					br
 					label Password:
-					input#password(type="password" name="password" placeholder="password")
+					input#password(type="password" name="password" placeholder="password" maxlength="50" minlength="8")
 					br
 					input(type="checkbox" name="checkbox") 
 					br
