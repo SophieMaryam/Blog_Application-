@@ -6,7 +6,7 @@ app.use('/', bodyParser.urlencoded({extended:true}));
 
 // Model Configuration 
 const Sequelize = require('sequelize');
-const connection = new Sequelize('blogapplication', 'postgres', '1626', {
+const connection = new Sequelize('blogapplication', process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
 	host: 'localhost',
 	dialect: 'postgres'
 });
@@ -145,8 +145,6 @@ app.post('/registeruser', (req,  res) =>{
 // BLOG WALL (ALL BLOGS)
 
 app.get('/wall', (req, res) => {
-	var user = req.session.user;
-
 	var user = req.session.user;
 	
 	console.log(user);
