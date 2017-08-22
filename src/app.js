@@ -224,15 +224,15 @@ app.post('/bloglogin', (req, res) => {
 			email: req.body.email
 		}
 	}).then((user) => {
-		if(!user || req.body.password !== user.password){
+		if(!user){
 			res.redirect('/?message=' + encodeURICOmponent("Invalid email or password"));
-		} else if(user !== null){
-			req.session.user = user;
+		} else {
 			bcrypt.compare(req.body.password, user.password, (err, result) => { // first argument is the password the user typed in, and thes second is the one in the database
 				if(err){
 					console.log(err)
 				} else {
 					if(result === true){
+						req.session.user = user;
 						res.redirect(`/profile`)
 					} else {
 						console.log("Error")
